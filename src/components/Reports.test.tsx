@@ -1,0 +1,20 @@
+import { afterEach, it, expect } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Reports from "./Reports";
+import { emptyState } from "../domain/model";
+import { money } from "../domain/finance";
+afterEach(cleanup);
+it("offers a useful empty state and keeps invalid custom dates editable", async () => {
+  render(<Reports s={emptyState()} format={money} hidden={false} />);
+  expect(screen.getByText(/Not much to report yet/)).toBeVisible();
+  const user = userEvent.setup();
+  await user.selectOptions(screen.getByLabelText("Report period"), "custom");
+  await user.clear(screen.getByLabelText("From"));
+  await user.click(screen.getByRole("button", { name: "Apply dates" }));
+  expect(screen.getByRole("alert")).toBeVisible();
+  expect(screen.getByLabelText("From")).toBeVisible();
+  await user.type(screen.getByLabelText("From"), "2020-01-01");
+  await user.click(screen.getByRole("button", { name: "Apply dates" }));
+  expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+});

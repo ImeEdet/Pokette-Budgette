@@ -1,0 +1,180 @@
+/* Shared palette tokens preserve the light theme while making all surfaces theme-aware. */
+:root[data-theme="dark"] {
+  --tone-49384f: #e8dfee;
+  --tone-fcfaf7: #201c26;
+  --tone-796d7f: #bdb1c4;
+  --tone-e9e2e9: #55485e;
+  --tone-dcc9f5: #353239;
+  --tone-8b61aa: #c8a1e4;
+  --tone-cdb4eb: #332f37;
+  --tone-fffdfb: #2b2533;
+  --tone-ded4e2: #353436;
+  --tone-f9e2e9: #393637;
+  --tone-e8bdca: #373032;
+  --tone-862e49: #f2b0c5;
+  --tone-eee7f7: #383739;
+  --tone-eee7f3: #383738;
+  --tone-75538c: #d2b5e8;
+  --tone-f4eff8: #393839;
+  --tone-e8dfec: #373537;
+  --tone-77667f: #bfbbc1;
+  --tone-e4d5f4: #363439;
+  --tone-4c365f: #b5b0ba;
+  --tone-8d7095: #c4bec6;
+  --tone-7c7281: #c1bec2;
+  --tone-91b89b: #c5cec8;
+  --tone-827389: #c2bec4;
+  --tone-59455f: #b8b4ba;
+  --tone-f5dfdf: #393535;
+  --tone-b18ac9: #cdc4d2;
+  --tone-e7daf5: #373539;
+  --tone-d8c7eb: #343237;
+  --tone-66516f: #bbb7be;
+  --tone-bba2ca: #302c32;
+  --tone-6c5875: #bdb8bf;
+  --tone-c8afd9: #322e35;
+  --tone-fff0cb: #3a3832;
+  --tone-f0dfb2: #38352f;
+  --tone-8f7751: #c5bfb7;
+  --tone-8a765e: #c4bfba;
+  --tone-be9b63: #d0c8bb;
+  --tone-8a778e: #c4bfc5;
+  --tone-d7eadb: #343735;
+  --tone-f8d8e3: #393436;
+  --tone-e6daf4: #373539;
+  --tone-fff0d4: #3a3834;
+  --tone-b59ac5: #cec7d1;
+  --tone-e7dfe8: #373537;
+  --tone-a18ba9: #c9c4cb;
+  --tone-eadff7: #373539;
+  --tone-84738d: #c2bec4;
+  --tone-f1edf2: #383838;
+  --tone-7e7185: #c1bec3;
+  --tone-76677e: #bfbcc1;
+  --tone-f0eaf1: #383738;
+  --tone-f8e4ea: #393637;
+  --tone-e2eee3: #363836;
+  --tone-ede4f7: #383639;
+  --tone-88758d: #c3bfc4;
+  --tone-40744f: #a7d6b2;
+  --tone-a03354: #f2a8bf;
+  --tone-f5f0f6: #393839;
+  --tone-ebe4ee: #373638;
+  --tone-8a7792: #c4bfc6;
+  --tone-64506d: #bbb6bd;
+  --tone-c7b0d8: #322e34;
+  --tone-e2d7e6: #363437;
+  --tone-a18ca9: #c9c4cb;
+  --tone-ddc896: #35322b;
+  --tone-8d67aa: #c4bccb;
+  --tone-f7f2fa: #39383a;
+  --tone-eee7f0: #383738;
+  --tone-cbbad5: #323034;
+  --tone-dbeadc: #353735;
+  --tone-adc4b1: #2e312f;
+  --tone-eee6f6: #383739;
+  --tone-dfedde: #353835;
+  --tone-fff0cf: #3a3833;
+  --tone-dcd1e2: #353336;
+  --tone-fffdfd: #251f2d;
+  --tone-fffdf9: #2b2533;
+  --tone-d8c4e5: #343136;
+  --tone-8a758f: #c4bfc5;
+  --tone-fbe4e8: #3a3637;
+  --tone-8c294a: #f2b0c5;
+  --tone-efbaca: #383032;
+  --tone-fbf7f2: #201c26;
+  --tone-b996ce: #cfc7d3;
+  --tone-c693b2: #d2c6cd;
+  --tone-9876aa: #c7bfcb;
+  --tone-8c7b93: #c4c0c6;
+  --tone-fffdfa: #2b2533;
+  --tone-e7dce9: #373537;
+  --tone-a181b6: #c9c2ce;
+  --tone-8d7a93: #c4c0c6;
+  --tone-97859e: #c7c3c8;
+  --tone-faf6fd: #3a393a;
+  --tone-e0d4e6: #363437;
+  --tone-fff2d9: #3a3835;
+  --tone-d7bd8b: #d5cfc4;
+  --tone-80608f: #c1bac5;
+  --tone-ded0ed: #353338;
+  --tone-9974b5: #c7bfce;
+  --tone-c9b4d7: #322f34;
+  --tone-706077: #bebabf;
+  --tone-eee5f8: #383639;
+  --tone-8a689b: #c4bcc8;
+  --tone-f5effa: #39383a;
+}
+:root[data-theme="dark"] .wallet-card {
+  background: #302a3a !important;
+}
+:root[data-theme="dark"] .wallet-card:nth-child(3n + 2) {
+  background: #26352f !important;
+}
+:root[data-theme="dark"] .wallet-card:nth-child(3n) {
+  background: #383023 !important;
+}
+:root[data-theme="dark"] .sticker {
+  background: color-mix(in srgb, var(--accent, #dcc9f5) 20%, #201c26);
+  border-color: #64546d;
+}
+:root[data-theme="dark"] .progress > span {
+  background: color-mix(in srgb, var(--accent, #dcc9f5) 65%, #201c26);
+}
+:root[data-theme="dark"] .modal::backdrop {
+  background: #100d16b3;
+}
+:root[data-theme="dark"] .welcome {
+  background-image: none;
+}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+  color: #b2a6bc;
+  opacity: 1;
+}
+:root[data-theme="dark"] .balance-card,
+:root[data-theme="dark"] .panel,
+:root[data-theme="dark"] .sticky-note,
+:root[data-theme="dark"] .modal,
+:root[data-theme="dark"] .welcome-card {
+  box-shadow: none;
+}
+.theme-options {
+  border: 0;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  gap: 8px;
+}
+.theme-options legend {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.theme-options label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  min-height: 48px;
+}
+.theme-options input {
+  accent-color: #9974b5;
+  width: 18px;
+  height: 18px;
+}
+.appearance-panel {
+  grid-column: 1 / -1;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
