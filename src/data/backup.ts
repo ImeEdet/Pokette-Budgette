@@ -1,7 +1,7 @@
 import { type State } from "../domain/model";
 import { migrateState, validateState } from "../domain/validation";
 import { type Theme } from "../theme";
-export const APP_VERSION = "3.0.0";
+export const APP_VERSION = "3.1.0";
 export type Backup = {
   app: "Pokette Budgette";
   schemaVersion: 1;

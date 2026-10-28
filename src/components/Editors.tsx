@@ -13,7 +13,7 @@ import {
 import { moneyInput, payPurchase, saveTransaction } from "../domain/finance";
 import { Modal, Field } from "./Modal";
 export type Editor =
-  | { kind: "wallet"; item?: Wallet }
+  | { kind: "wallet"; item?: Wallet; firstSetup?: boolean }
   | { kind: "category"; item?: Category }
   | {
       kind: "transaction";
@@ -220,19 +220,27 @@ export function Editors({
   return (
     <Modal
       title={
-        editor.kind === "pay"
-          ? "Make it paid ♡"
-          : editor.kind === "purchase"
-            ? item
-              ? "Edit your plan"
-              : "Add something to pay"
-            : `${item ? "Edit" : "New"} ${editor.kind}`
+        editor.kind === "wallet" && editor.firstSetup
+          ? "Create your first wallet"
+          : editor.kind === "pay"
+            ? "Make it paid ♡"
+            : editor.kind === "purchase"
+              ? item
+                ? "Edit your plan"
+                : "Add something to pay"
+              : `${item ? "Edit" : "New"} ${editor.kind}`
       }
       onClose={close}
     >
       <form onSubmit={submit}>
         {editor.kind === "wallet" && (
           <>
+            {editor.firstSetup && (
+              <p className="hint">
+                Add a bank account or cash so Pokette knows your starting point.
+                Enter the balance you have now. You can add more wallets later.
+              </p>
+            )}
             <Field label="Wallet name">
               <input
                 name="name"

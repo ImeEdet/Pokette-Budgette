@@ -93,6 +93,7 @@ export default function App() {
   const offline = useOffline();
   const setDetail = (id: string | null) => go(page, id);
   const [editor, setEditor] = useState<Editor | null>(null);
+  const [firstWallet, setFirstWallet] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [actionError, setActionError] = useState("");
 
@@ -146,14 +147,23 @@ export default function App() {
           <button
             disabled={blocked}
             className="button primary"
-            onClick={() => commit(emptyState())}
+            onClick={() => {
+              if (commit(emptyState())) {
+                navigate("Wallets");
+                setFirstWallet(true);
+                setEditor({ kind: "wallet", firstSetup: true });
+              }
+            }}
           >
             Start Fresh <ArrowUpRight size={18} />
           </button>
           <button
             disabled={blocked}
             className="button secondary"
-            onClick={enterDemo}
+            onClick={() => {
+              enterDemo();
+              navigate("Dashboard");
+            }}
           >
             Explore Demo
           </button>
@@ -1176,7 +1186,7 @@ export default function App() {
           </Suspense>
         )}
         <footer className="page-footer">
-          <span>pokette budgette ♡ · V3.0.0</span>
+          <span>pokette budgette ♡ · V3.1.0</span>
           <small>Little plans, big dreams.</small>
         </footer>
       </main>
@@ -1185,8 +1195,18 @@ export default function App() {
           key={editor.kind + (editor.item?.id ?? "")}
           editor={editor}
           s={s}
-          save={commit}
-          close={() => setEditor(null)}
+          save={(next) => {
+            if (!commit(next)) return false;
+            if (firstWallet && editor.kind === "wallet") {
+              setFirstWallet(false);
+              navigate("Dashboard");
+            }
+            return true;
+          }}
+          close={() => {
+            setEditor(null);
+            setFirstWallet(false);
+          }}
         />
       )}
       {confirm && (

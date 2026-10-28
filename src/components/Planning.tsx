@@ -192,11 +192,12 @@ export function Planning({
       </details>
       <details className="budget-drawer">
         <summary>
-          Loans, gifts & family support <small>{s.loans.length}</small>
+          People who owe me / Money I owe <small>{s.loans.length}</small>
         </summary>
         <p className="hint">
-          Record money already sent or received. Loans and repayments affect
-          your wallets, but are kept out of ordinary spending.
+          Track debtors (people who owe you), money you borrowed, and gifts or
+          family support here. Record money already sent or received. Loans and
+          repayments affect your wallets, but are kept out of ordinary spending.
         </p>
         <button
           className="button secondary"
@@ -211,7 +212,15 @@ export function Planning({
             <article className="planning-card" key={l.id}>
               <h3>{l.person}</h3>
               <p>
-                {l.direction.replace("-", " ")} · {format(totals.principal)}
+                {
+                  {
+                    lent: "Money I lent · owed to me",
+                    borrowed: "Money I borrowed · I owe",
+                    "gift-given": "Gift I gave",
+                    "gift-received": "Gift I received",
+                  }[l.direction]
+                }{" "}
+                · {format(totals.principal)}
                 {l.due ? ` · Due ${l.due}` : ""}
               </p>
               {!gift && (
@@ -537,8 +546,8 @@ function PlanningEditor({
                 setDirection(e.target.value as Loan["direction"])
               }
             >
-              <option value="lent">Money I lent</option>
-              <option value="borrowed">Money I borrowed</option>
+              <option value="lent">Someone owes me · Money I lent</option>
+              <option value="borrowed">I owe someone · Money I borrowed</option>
               <option value="gift-given">Gift I gave</option>
               <option value="gift-received">Gift I received</option>
             </select>

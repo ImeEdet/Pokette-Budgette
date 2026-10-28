@@ -31,10 +31,13 @@ it("supports the Phase 1 acceptance workflow and reload", async () => {
   const user = userEvent.setup();
   const mounted = render(<App />);
   await user.click(screen.getByRole("button", { name: /Start Fresh/ }));
-  await user.click(screen.getByRole("button", { name: "Wallets" }));
-  await user.click(screen.getByRole("button", { name: "Add wallet" }));
+  expect(screen.getByRole("dialog")).toHaveAccessibleName(
+    "Create your first wallet",
+  );
   await user.type(screen.getByLabelText("Wallet name"), "Everyday");
   await user.click(screen.getByRole("button", { name: "Save wallet" }));
+  expect(screen.getByText("Hello, lovely planner")).toBeVisible();
+  await user.click(screen.getByRole("button", { name: "Wallets" }));
   await user.click(screen.getByRole("button", { name: "Add wallet" }));
   await user.type(screen.getByLabelText("Wallet name"), "Cash");
   await user.click(screen.getByRole("button", { name: "Save wallet" }));
@@ -106,6 +109,32 @@ it("keeps old data and shows an error when saving fails", async () => {
   expect(load()).toBeNull();
   vi.restoreAllMocks();
 });
+it("does not restart first-wallet setup for returning users, even with no wallets", () => {
+  persist(emptyState());
+  render(<App />);
+  expect(screen.getByText("Hello, lovely planner")).toBeVisible();
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+});
+it("lets a new user cancel wallet setup and keeps demo out of onboarding", async () => {
+  const user = userEvent.setup();
+  const mounted = render(<App />);
+  await user.click(screen.getByRole("button", { name: /Start Fresh/ }));
+  expect(screen.getByRole("dialog")).toHaveAccessibleName(
+    "Create your first wallet",
+  );
+  await user.click(
+    within(screen.getByRole("dialog")).getByRole("button", { name: "Cancel" }),
+  );
+  expect(window.location.hash).toBe("#/wallets");
+  expect(load()!.wallets).toHaveLength(0);
+  mounted.unmount();
+  localStorage.clear();
+  render(<App />);
+  await user.click(screen.getByRole("button", { name: "Explore Demo" }));
+  expect(screen.getByText("Hello, lovely planner")).toBeVisible();
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(load()).toBeNull();
+});
 it("groups payment items, cancels and restores without touching money, and keeps pockets off the dashboard", async () => {
   const s = emptyState();
   s.wallets = [
@@ -138,7 +167,9 @@ it("groups payment items, cancels and restores without touching money, and keeps
   expect(screen.getByText("Recent little moves")).toBeVisible();
   await user.click(screen.getByRole("button", { name: "Budget" }));
   const group = screen.getByText("Spotify").closest("section")!;
-  expect(within(group).getByRole("heading", { name: /Subscriptions/ })).toBeVisible();
+  expect(
+    within(group).getByRole("heading", { name: /Subscriptions/ }),
+  ).toBeVisible();
   expect(within(group).getByText("Spotify")).toBeVisible();
   expect(within(group).getByText("ChatGPT")).toBeVisible();
   await user.click(

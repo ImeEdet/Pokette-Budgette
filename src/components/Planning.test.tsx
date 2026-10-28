@@ -79,7 +79,7 @@ it("records partial income, a loan repayment and savings allocations with persis
   await user.click(screen.getByRole("button", { name: "Save payment" }));
   expect(screen.getByText(new RegExp("Partially received"))).toBeVisible();
   expect(overview(load()!).accessible).toBe(10500000);
-  await user.click(screen.getByText("Loans, gifts & family support"));
+  await user.click(screen.getByText("People who owe me / Money I owe"));
   await user.click(screen.getByRole("button", { name: "Add loan or gift" }));
   await user.type(screen.getByLabelText("Person"), "Ada");
   await user.type(screen.getByLabelText("Amount (₦)"), "1000");
